@@ -31,10 +31,22 @@
   <div class="container">
     <h1>Your Voucher Image</h1>
     <div class="qr-code">
-<!--       <img src="/api/qrcode?url=https://example.com/voucher.jpg" alt="QR Code"> -->
-      <img src="/api/qrcode?url=https://tvallini.github.io/gift/one.png" alt="QR Code">
+      <img id="qr-code-img" src="" alt="QR Code">
     </div>
     <p>Scan the QR code to view your voucher image.</p>
   </div>
+
+  <script>
+    // Replace this with the URL of your voucher image
+    const voucherImageUrl = 'https://tvallini.github.io/gift/one.png';
+
+    // Use the QR Code Generator API to dynamically generate the QR code
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(voucherImageUrl)}`)
+      .then(response => response.url)
+      .then(qrCodeUrl => {
+        document.getElementById('qr-code-img').src = qrCodeUrl;
+      });
+  </script>
 </body>
 </html>
+
