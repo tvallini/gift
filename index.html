@@ -294,8 +294,8 @@
     }
     
     // Replace this with the URL of your voucher image
-    const voucherImageUrl = 'https://tvallini.github.io/gift/one.png';
-    const voucherFileName = 'one.png';
+    const voucherImageUrl = 'https://tvallini.github.io/gift/voucher.jpg';
+    const voucherFileName = 'voucher.jpg';
     const downloadUrl = createDownloadUrl(voucherImageUrl);
 
     // Function to trigger download
@@ -321,25 +321,6 @@
     const loadingPlaceholder = document.getElementById('qr-placeholder');
 
     // Generate QR code for downloading the image
-    // const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
-    // const qrData = `javascript:${encodeURIComponent(downloadScript)}`;
-    
-    // Load QR code
-    // fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(voucherImageUrl)}`)
-    //   .then(response => response.url)
-    //   .then(qrCodeUrl => {
-    //     qrImage.src = qrCodeUrl;
-    //     qrImage.onload = () => {
-    //       loadingPlaceholder.style.display = 'none';
-    //       qrImage.style.display = 'block';
-    //     };
-    //   })
-    //   .catch(error => {
-    //     console.error('Error loading QR code:', error);
-    //     loadingPlaceholder.innerHTML = '<p style="color: #666;">Error loading QR code</p>';
-    //   });
-    
-    // fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`)
     fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(downloadUrl)}`)
       .then(response => response.url)
       .then(qrCodeUrl => {
