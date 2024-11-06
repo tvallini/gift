@@ -279,15 +279,8 @@
       </div>
       <img id="qr-code-img" src="" alt="QR Code" style="display: none;">
     </div>
-    <button class="download-button" id="download-btn" style="display: none;">
-      <i class="fas fa-download"></i>
-      Download Voucher
-    </button>
     <div class="instructions modak-regular">
-      <span class="words">
-        <label class="word">scan me!</label>
-        <label class="word">touch me!</label>
-      </span>
+      <span>scan or touch</span>
     </div>
   </div>
 
@@ -325,7 +318,6 @@
     // Get DOM elements
     const qrImage = document.getElementById('qr-code-img');
     const loadingPlaceholder = document.getElementById('qr-placeholder');
-    // const downloadBtn = document.getElementById('download-btn');
 
     // Generate QR code for downloading the image
     // const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
@@ -357,7 +349,6 @@
         qrImage.onload = () => {
           loadingPlaceholder.style.display = 'none';
           qrImage.style.display = 'block';
-          // downloadBtn.style.display = 'inline-flex';
         };
       })
       .catch(error => {
@@ -366,7 +357,6 @@
       });
 
     // Add click handlers
-    // downloadBtn.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
     qrImage.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
   </script>
 </body>
