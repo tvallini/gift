@@ -333,7 +333,7 @@
     // Get DOM elements
     const qrImage = document.getElementById('qr-code-img');
     const loadingPlaceholder = document.getElementById('qr-placeholder');
-    const downloadBtn = document.getElementById('download-btn');
+    // const downloadBtn = document.getElementById('download-btn');
 
     // Generate QR code for downloading the image
     const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
@@ -360,7 +360,7 @@
         qrImage.onload = () => {
           loadingPlaceholder.style.display = 'none';
           qrImage.style.display = 'block';
-          downloadBtn.style.display = 'inline-flex';
+          // downloadBtn.style.display = 'inline-flex';
         };
       })
       .catch(error => {
@@ -369,7 +369,7 @@
       });
 
     // Add click handlers
-    downloadBtn.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
+    // downloadBtn.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
     qrImage.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
   </script>
 </body>
