@@ -308,9 +308,17 @@
   </div>
 
   <script>
+    // Function to create a download URL using a proxy service
+    function createDownloadUrl(imageUrl) {
+      // You can replace this with your own server endpoint that handles the download
+      // For this example, we'll use a direct link
+      return imageUrl;
+    }
+    
     // Replace this with the URL of your voucher image
     const voucherImageUrl = 'https://tvallini.github.io/gift/one.png';
-    const voucherFileName = 'one.png';
+    // const voucherFileName = 'one.png';
+    const downloadUrl = createDownloadUrl(voucherImageUrl);
 
     // Function to trigger download
     async function downloadImage(imageUrl, fileName) {
@@ -353,9 +361,14 @@
     //     console.error('Error loading QR code:', error);
     //     loadingPlaceholder.innerHTML = '<p style="color: #666;">Error loading QR code</p>';
     //   });
-    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`)
+    
+    // fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`)
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(downloadUrl)}`)
       .then(response => response.url)
       .then(qrCodeUrl => {
+        const qrImage = document.getElementById('qr-code-img');
+        const loadingPlaceholder = document.getElementById('qr-placeholder');
+        
         qrImage.src = qrCodeUrl;
         qrImage.onload = () => {
           loadingPlaceholder.style.display = 'none';
