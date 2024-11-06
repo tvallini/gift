@@ -240,6 +240,25 @@
       }
     }
     
+    .download-button {
+      background: #764ba2;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .download-button:hover {
+      background: #667eea;
+      transform: translateY(-2px);
+    }
     @media (max-width: 480px) {
       .container {
         padding: 1.5rem;
@@ -279,6 +298,10 @@
       </div>
       <img id="qr-code-img" src="" alt="QR Code" style="display: none;">
     </div>
+    <button class="download-button" id="download-btn" style="display: none;">
+      <i class="fas fa-download"></i>
+      Download Voucher
+    </button>
     <div class="instructions">
       <span class="modak-regular">scan me!</span>
     </div>
@@ -287,25 +310,67 @@
   <script>
     // Replace this with the URL of your voucher image
     const voucherImageUrl = 'https://tvallini.github.io/gift/one.png';
+    const voucherFileName = 'one.png';
+
+    // Function to trigger download
+    async function downloadImage(imageUrl, fileName) {
+      try {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (error) {
+        console.error('Error downloading image:', error);
+      }
+    }
     
     // Get DOM elements
     const qrImage = document.getElementById('qr-code-img');
     const loadingPlaceholder = document.getElementById('qr-placeholder');
+    const downloadBtn = document.getElementById('download-btn');
 
+    // Generate QR code for downloading the image
+    const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
+    const qrData = `javascript:${encodeURIComponent(downloadScript)}`;
+    
     // Load QR code
-    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(voucherImageUrl)}`)
+    // fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(voucherImageUrl)}`)
+    //   .then(response => response.url)
+    //   .then(qrCodeUrl => {
+    //     qrImage.src = qrCodeUrl;
+    //     qrImage.onload = () => {
+    //       loadingPlaceholder.style.display = 'none';
+    //       qrImage.style.display = 'block';
+    //     };
+    //   })
+    //   .catch(error => {
+    //     console.error('Error loading QR code:', error);
+    //     loadingPlaceholder.innerHTML = '<p style="color: #666;">Error loading QR code</p>';
+    //   });
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrData)}`)
       .then(response => response.url)
       .then(qrCodeUrl => {
         qrImage.src = qrCodeUrl;
         qrImage.onload = () => {
           loadingPlaceholder.style.display = 'none';
           qrImage.style.display = 'block';
+          downloadBtn.style.display = 'inline-flex';
         };
       })
       .catch(error => {
         console.error('Error loading QR code:', error);
-        loadingPlaceholder.innerHTML = '<p style="color: #666;">Error loading QR code</p>';
+        loadingPlaceholder.innerHTML = '<p style="color: #666; padding: 1rem;">Error loading QR code</p>';
       });
+
+    // Add click handlers
+    downloadBtn.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
+    qrImage.addEventListener('click', () => downloadImage(voucherImageUrl, voucherFileName));
   </script>
 </body>
 </html>
