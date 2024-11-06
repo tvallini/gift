@@ -317,7 +317,7 @@
     
     // Replace this with the URL of your voucher image
     const voucherImageUrl = 'https://tvallini.github.io/gift/one.png';
-    // const voucherFileName = 'one.png';
+    const voucherFileName = 'one.png';
     const downloadUrl = createDownloadUrl(voucherImageUrl);
 
     // Function to trigger download
@@ -344,8 +344,8 @@
     // const downloadBtn = document.getElementById('download-btn');
 
     // Generate QR code for downloading the image
-    const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
-    const qrData = `javascript:${encodeURIComponent(downloadScript)}`;
+    // const downloadScript = `fetch('${voucherImageUrl}').then(r=>r.blob()).then(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='${voucherFileName}';a.click()})`;
+    // const qrData = `javascript:${encodeURIComponent(downloadScript)}`;
     
     // Load QR code
     // fetch(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(voucherImageUrl)}`)
